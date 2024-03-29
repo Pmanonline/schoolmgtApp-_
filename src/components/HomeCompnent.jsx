@@ -96,9 +96,7 @@ export const HomeComponet = () => {
             />
           </div>
 
-          <h1 className="text-3xl mb-3 text-blue italic font-black ">
-            App Features
-          </h1>
+          <h1 className="text-3xl mb-3 text-blue italic  ">App Features</h1>
           <div className=" inline-block text-start">
             <div>
               <FontAwesomeIcon icon="circle" className=" text-gray-500 mr-2" />
