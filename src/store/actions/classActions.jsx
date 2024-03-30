@@ -17,7 +17,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 const backendURL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:5000"
-    : import.meta.env.VITE_SERVER_URL;
+    : "https://schoolmgtapp-api.onrender.com";
 
 // create a class
 export const createClass =
@@ -35,7 +35,7 @@ export const createClass =
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/class/create",
+        `${backendURL}/api/class/create`,
         body,
         config
       );
@@ -68,7 +68,8 @@ export const createClass =
 
 export const getClasses = () => (dispatch) => {
   axios
-    .get("http://localhost:5000/api/class")
+    .get(`${backendURL}/api/class`)
+
     .then((res) => {
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: GET_CLASS, payload: res.data });
@@ -100,7 +101,7 @@ export const deleteClass = (customId) => async (dispatch) => {
   };
 
   await axios
-    .delete(`http://localhost:5000/api/class/${customId}`, config)
+    .delete(`${backendURL}/api/class/${customId}`, config)
     .then(() => {
       dispatch({
         type: CLASS_DELETED,
@@ -127,7 +128,7 @@ export const updateAClass =
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/class/${customId}`,
+        `${backendURL}/api/class/${customId}`,
         body,
         config
       );
