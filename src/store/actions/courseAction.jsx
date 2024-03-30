@@ -12,6 +12,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 // import error actions
 import { returnErrors } from "./errorActions";
 import axios from "axios";
+const backendURL =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:5000"
+    : "https://schoolmgtapp-api.onrender.com";
 
 export const createCourse =
   ({ courseName }) =>
@@ -28,7 +32,7 @@ export const createCourse =
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/course/create",
+        `${backendURL}/api/course/create`,
         body,
         config
       );
@@ -56,56 +60,10 @@ export const createCourse =
     }
   };
 
-// export const createCourse =
-//   ({ courseName }) =>
-//   async (dispatch) => {
-//     // Headers;
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
-
-//     // Request body
-//     const body = JSON.stringify({ courseName });
-
-//     try {
-//       const res = await axios.post(
-//         "http://localhost:5000/api/course/create",
-//         body,
-//         config
-//       );
-//       const { data } = res.data;
-
-//       // If the request is successful, clear any previous errors
-//       dispatch({ type: CLEAR_ERRORS });
-
-//       // Dispatch ADD_COURSE and COURSE_CREATED actions as before
-//       dispatch({ type: ADD_COURSE, payload: [data] });
-//       dispatch({ type: COURSE_CREATED });
-//     } catch (err) {
-//       // If an error occurs, dispatch GET_ERRORS to set error information
-//       const errorMessage =
-//         err.response?.data.message || "An error occurred. Please try again.";
-//       dispatch({
-//         type: GET_ERRORS,
-//         payload: {
-//           // msg: err.message,
-//           msg: errorMessage,
-//           status: err.response?.status,
-//           id: "COURSE__ERROR",
-//         },
-//       });
-
-//       // You can also handle other actions or error-specific logic here
-//       dispatch({ type: COURSE_FAIL });
-//     }
-//   };
-
 // read courses
 export const getCourses = () => (dispatch) => {
   axios
-    .get("http://localhost:5000/api/course")
+    .get(`${backendURL}/api/course`)
     .then((res) => {
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: ADD_COURSE, payload: res.data });
@@ -142,7 +100,7 @@ export const updateACourse =
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/course/${customId}`,
+        `${backendURL}/api/course/${customId}`,
         body,
         config
       );
@@ -171,7 +129,7 @@ export const deleteCourse = (customId) => async (dispatch) => {
   };
 
   await axios
-    .delete(`http://localhost:5000/api/course/${customId}`, config)
+    .delete(`${backendURL}/api/course/${customId}`, config)
     .then(() => {
       dispatch({
         type: COURSE_DELETED,
