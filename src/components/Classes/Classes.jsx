@@ -14,11 +14,11 @@ const Classes = () => {
           {classes.map(({ className, slug }, id) => {
             return (
               <li>
-                <div class=" mx-auto  container ">
-                  <table class="min-w-full border border-gray-300">
+                <div className=" mx-auto  container ">
+                  <table className="min-w-full border border-gray-300">
                     <tbody>
-                      <tr key={id} class="bg-white  text-center">
-                        <td class="px-6 py-4 border-b hover:bg-gray-100 border-gray-300">
+                      <tr key={id} className="bg-white  text-center">
+                        <td className="px-6 py-4 border-b hover:bg-gray-100 border-gray-300">
                           <Link to={`/about-class/${slug}`}>
                             {className.toUpperCase()}
                           </Link>
