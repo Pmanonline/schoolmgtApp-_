@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Link,
+} from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import lms1 from "../images/images.jpg";
 
@@ -10,6 +15,7 @@ export default function Navbar() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
@@ -24,12 +30,17 @@ export default function Navbar() {
     };
   }, []);
 
-  const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
+  const [activeLink, setActiveLink] = useState("/courses"); // Initialize with a default value
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
+
   return (
     <>
-      <div className="w-full ">
+      <div className="w-full">
         <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-0">
-          {/* Logo  */}
+          {/* Logo */}
           <Disclosure>
             {({ open }) => (
               <>
@@ -71,66 +82,124 @@ export default function Navbar() {
 
                   <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
                     <>
-                      <div className=" text-center lg:flex lg:items-center">
+                      <div className="text-center lg:flex lg:items-center">
+                        {/* <ul className="items-center justify-end flex-1 pt-6 lg:pt-0 list-reset lg:flex"> */}
                         <ul className="items-center justify-end flex-1 pt-6 lg:pt-0 list-reset lg:flex">
-                          <Link to={"/courses"}>
-                            <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                              Courses
-                            </li>
-                          </Link>
-                          <Link to={"/classes"}>
-                            <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                              Classes
-                            </li>
-                          </Link>
-                          <Link to={"/students"}>
-                            <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                              Students
-                            </li>
-                          </Link>
-                          <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                            <div className="relative group" ref={dropdownRef}>
-                              <button onClick={toggleDropdown} className="flex">
-                                Creates
-                                <svg
-                                  className="w-2.5 h-2.5 ml-2.5 mt-[8px]"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 10 6"
+                          <NavLink
+                            to="/courses"
+                            className={`inline-block pr-[35px] py-2 sm:text-lg font-bold ${
+                              activeLink === "/courses"
+                                ? "text-blue"
+                                : "text-black"
+                            } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                            onClick={() => setActiveLink("/courses")}
+                          >
+                            Courses
+                          </NavLink>
+
+                          <NavLink
+                            to="/classes"
+                            className={`inline-block pr-[35px] py-2 sm:text-lg font-bold ${
+                              activeLink === "/classes"
+                                ? "text-blue"
+                                : "text-black"
+                            } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                            onClick={() => setActiveLink("/classes")}
+                          >
+                            Classes
+                          </NavLink>
+
+                          <NavLink
+                            to="/students"
+                            className={`inline-block pr-[35px] py-2 sm:text-lg font-bold ${
+                              activeLink === "/students"
+                                ? "text-blue"
+                                : "text-black"
+                            } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                            onClick={() => setActiveLink("/students")}
+                          >
+                            Students
+                          </NavLink>
+                          <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none ">
+                            <div className="relative group " ref={dropdownRef}>
+                              <NavLink
+                                className={`flex text-lg font-bold ${
+                                  activeLink === "/create-course" ||
+                                  activeLink === "/create-class" ||
+                                  activeLink === "/create-student"
+                                    ? "text-blue"
+                                    : "text-black"
+                                } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                                onClick={() => setActiveLink("create")}
+                              >
+                                <button
+                                  onClick={toggleDropdown}
+                                  className="flex sm:text-lg text-[17px]"
                                 >
-                                  <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="m1 1 4 4 4-4"
-                                  />
-                                </svg>
-                              </button>
+                                  Creates
+                                  <svg
+                                    className="w-2.5 h-2.5 ml-2.5 mt-[8px]"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 10 6"
+                                  >
+                                    <path
+                                      stroke="currentColor"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
+                                      d="m1 1 4 4 4-4"
+                                    />
+                                  </svg>
+                                </button>
+                              </NavLink>
+
                               {isDropdownOpen && (
-                                <div className="absolute bg-gray-600 mt-2 py-2 w-[130px] rounded shadow-lg">
-                                  <a
-                                    href="/create-course"
-                                    className="px-1 py-2 text-[16px]  font-medium text-white block whitespace-nowrap"
+                                <div className="absolute bg-gray-100 mt-2 py-2 w-[130px] rounded shadow-lg transition-transform duration-2000 ease-out">
+                                  <NavLink
+                                    to="/create-course"
+                                    className={`px-1 py-2 text-[16px] font-medium block whitespace-nowrap ${
+                                      activeLink === "/create-course"
+                                        ? "text-blue"
+                                        : "text-black"
+                                    }`}
+                                    onClick={() =>
+                                      setActiveLink("/create-course")
+                                    }
                                   >
                                     Create a
                                     <span className="font-bold">course</span>
-                                  </a>
-                                  <a
-                                    href="/create-class"
-                                    className="px-1 py-2 text-[16px]  font-medium text-white block"
+                                  </NavLink>
+
+                                  <NavLink
+                                    to="/create-class"
+                                    className={`px-1 py-2 text-[16px] font-medium block whitespace-nowrap ${
+                                      activeLink === "/create-class"
+                                        ? "text-blue"
+                                        : "text-black"
+                                    }`}
+                                    onClick={() =>
+                                      setActiveLink("/create-class")
+                                    }
                                   >
                                     Create a
                                     <span className="font-bold">class</span>
-                                  </a>
-                                  <a
-                                    href="/create-student"
-                                    className="px-1 py-2 text-[16px]  font-medium text-white block"
+                                  </NavLink>
+                                  <NavLink
+                                    to="/create-student"
+                                    className={`px-1 py-2 text-[16px] font-medium block whitespace-nowrap ${
+                                      activeLink === "/create-student"
+                                        ? "text-blue"
+                                        : "text-black"
+                                    }`}
+                                    onClick={() =>
+                                      setActiveLink("/create-student")
+                                    }
                                   >
                                     Add a
                                     <span className="font-bold">student</span>
-                                  </a>
+                                  </NavLink>
                                 </div>
                               )}
                             </div>
@@ -144,64 +213,107 @@ export default function Navbar() {
             )}
           </Disclosure>
 
-          {/* menu  */}
+          {/* menu */}
           <div className="hidden text-center lg:flex lg:items-center">
             <ul className="items-center justify-end flex-1 pt-6 lg:pt-0 list-reset lg:flex">
-              <Link to={"/courses"}>
-                <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                  Courses
-                </li>
-              </Link>
-              <Link to={"/classes"}>
-                <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                  Classes
-                </li>
-              </Link>
-              <Link to={"/students"}>
-                <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                  Students
-                </li>
-              </Link>
-              <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md  hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
+              <NavLink
+                to="/courses"
+                className={`inline-block pr-[35px] py-2 text-lg font-bold ${
+                  activeLink === "/courses" ? "text-blue" : "text-black"
+                } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                onClick={() => setActiveLink("/courses")}
+              >
+                Courses
+              </NavLink>
+
+              <NavLink
+                to="/classes"
+                className={`inline-block pr-[35px] py-2 text-lg font-bold ${
+                  activeLink === "/classes" ? "text-blue" : "text-black"
+                } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                onClick={() => setActiveLink("/classes")}
+              >
+                Classes
+              </NavLink>
+
+              <NavLink
+                to="/students"
+                className={`inline-block pr-[35px] py-2 text-lg font-bold ${
+                  activeLink === "/students" ? "text-blue" : "text-black"
+                } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                onClick={() => setActiveLink("/students")}
+              >
+                Students
+              </NavLink>
+
+              <li className="inline-block pr-[35px] py-2 text-lg font-bold text-gray-500 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
                 <div className="relative group" ref={dropdownRef}>
-                  <button onClick={toggleDropdown} className="flex">
-                    Creates
-                    <svg
-                      className="w-2.5 h-2.5 ml-2.5 mt-[8px]"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 10 6"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m1 1 4 4 4-4"
-                      />
-                    </svg>
-                  </button>
+                  <NavLink
+                    className={`inline-block pr-[35px] py-2 text-lg font-bold ${
+                      activeLink === "/create-course" ||
+                      activeLink === "/create-class" ||
+                      activeLink === "/create-student"
+                        ? "text-blue"
+                        : "text-black"
+                    } no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none`}
+                    onClick={() => setActiveLink("create")}
+                  >
+                    <button onClick={toggleDropdown} className="flex">
+                      Creates
+                      <svg
+                        className="w-2.5 h-2.5 ml-2.5 mt-[8px]"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m1 1 4 4 4-4"
+                        />
+                      </svg>
+                    </button>
+                  </NavLink>
+
                   {isDropdownOpen && (
-                    <div className="absolute bg-gray-600 mt-2 py-2 w-[130px] rounded shadow-lg">
-                      <a
-                        href="/create-course"
-                        className="px-1 py-2 text-[16px]  font-medium text-white block whitespace-nowrap"
+                    <div className="absolute bg-gray-100 mt-2 py-2 w-[130px] rounded shadow-lg transition-transform duration-2000 ease-out">
+                      <NavLink
+                        to="/create-course"
+                        className={`px-1 py-2 text-[16px] font-medium block whitespace-nowrap ${
+                          activeLink === "/create-course"
+                            ? "text-blue"
+                            : "text-black"
+                        }`}
+                        onClick={() => setActiveLink("/create-course")}
                       >
                         Create a <span className="font-bold">course</span>
-                      </a>
-                      <a
-                        href="/create-class"
-                        className="px-1 py-2 text-[16px]  font-medium text-white block"
+                      </NavLink>
+
+                      <NavLink
+                        to="/create-class"
+                        className={`px-1 py-2 text-[16px] font-medium block whitespace-nowrap ${
+                          activeLink === "/create-class"
+                            ? "text-blue"
+                            : "text-black"
+                        }`}
+                        onClick={() => setActiveLink("/create-class")}
                       >
                         Create a <span className="font-bold">class</span>
-                      </a>
-                      <a
-                        href="/create-student"
-                        className="px-1 py-2 text-[16px]  font-medium text-white block"
+                      </NavLink>
+                      <NavLink
+                        to="/create-student"
+                        className={`px-1 py-2 text-[16px] font-medium block whitespace-nowrap ${
+                          activeLink === "/create-student"
+                            ? "text-blue"
+                            : "text-black"
+                        }`}
+                        onClick={() => setActiveLink("/create-student")}
                       >
                         Add a <span className="font-bold">student</span>
-                      </a>
+                      </NavLink>
                     </div>
                   )}
                 </div>
