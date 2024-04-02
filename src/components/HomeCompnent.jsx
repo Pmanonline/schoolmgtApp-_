@@ -1,77 +1,7 @@
-// import { Provider, useSelector } from "react-redux";
-// import { AvatarGenerator } from "random-avatar-generator";
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import AppNavbar from "./AppNavbar";
-// import Navbar from "../components/Navbar";
-
-// /* Css */
-// import "../styles.css";
-// const generator = new AvatarGenerator();
-// const avatar = generator.generateRandomAvatar();
-
-// export const HomeComponet = () => {
-//   const { courses } = useSelector((state) => state.cou);
-
-//   return (
-//     <div className="container">
-//       <Navbar />
-//       <AppNavbar />
-//       <div className="home__wrapper">
-//         <div className="home__left">
-//           <img src={avatar} alt="Avatar" />
-
-//           <h1>App Actions</h1>
-//           <ul className="text-purple">
-//             <li>Create & Manage Courses</li>
-//             <li>Create & Manage Classes</li>
-//             <li>Create & Manage Students</li>
-//           </ul>
-//         </div>
-
-//         <div className="home__actions">
-//           {courses.length > 0 ? (
-//             <>
-//               <div className="home__action">
-//                 <Link to="/create-course">
-//                   <button>Create a course</button>
-//                 </Link>
-//               </div>
-//               <div className="home__action">
-//                 <Link to="/create-class">
-//                   <button>Create a class</button>
-//                 </Link>
-//               </div>
-//               <div className="home__action">
-//                 <Link to="/create-student">
-//                   <button>Add a student</button>
-//                 </Link>
-//               </div>
-//               <div className="home__manager">
-//                 <Link to="/students">Manage Students</Link>
-//                 <Link to="/classes">Manage Classes</Link>
-//                 <Link to="/courses">Manage Courses</Link>
-//               </div>
-//             </>
-//           ) : (
-//             <div>
-//               <h3>No Course Available</h3>
-//               <Link to="/create-course">
-//                 <h4>Create a Course</h4>
-//               </Link>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
 import { Provider, useSelector } from "react-redux";
 import { AvatarGenerator } from "random-avatar-generator";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import AppNavbar from "./AppNavbar";
-import Navbar from "./Navbar";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

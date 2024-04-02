@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomeComponet } from "./components/HomeCompnent";
 import AppNavbar from "./components/AppNavbar";
-import Navbar from "./components/Navbar";
+import { Navbar1 } from "./components/Navbar";
 import store from "./store/store";
 import { getClasses } from "./store/actions/classActions";
 import { getCourses } from "./store/actions/courseAction";
@@ -30,7 +30,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
+        <Navbar1 />
         <Routes>
           <Route path="/create-class" element={<AdminClass />} />
           <Route path="/create-student" element={<AdminStudent />} />
