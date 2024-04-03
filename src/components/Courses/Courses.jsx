@@ -10,7 +10,7 @@ const Courses = () => {
     <div className="lg:mx-[150px] mod:mx-[20px] mb-5">
       {courses.length > 0 ? (
         <ul className="allClasses">
-          <h2 className="text-center mb-5">List of Courses</h2>
+          <h2 className="text-center my-5 font-semibold">List of Courses</h2>
 
           {courses.map(({ courseName, slug }, id) => {
             return (
