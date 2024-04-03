@@ -15,32 +15,6 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import lms1 from "../images/images.jpg";
 
 function NavList() {
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const dropdownRef = useRef(null);
-
-  // const toggleDropdown = () => {
-  //   setIsDropdownOpen(!isDropdownOpen);
-  // };
-
-  // const handleClickOutside = (event) => {
-  //   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //     setIsDropdownOpen(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   document.addEventListener("click", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutside);
-  //   };
-  // }, []);
-
-  // const [activeLink, setActiveLink] = useState("/courses"); // Initialize with a default value
-
-  // const handleLinkClick = (link) => {
-  //   setActiveLink(link);
-  // };
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -239,7 +213,7 @@ export function Navbar1() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
+    <Navbar className="mx-auto  px-6 py-3">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to={`/`}>
           <div className="mb-2">
